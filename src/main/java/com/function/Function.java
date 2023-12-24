@@ -40,4 +40,18 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.OK).body("Hello, " + name).build();
         }
     }
+
+
+    @FunctionName("Http2")
+    public Antwort run(
+            @HttpTrigger(
+                name = "req",
+                methods = {HttpMethod.GET, HttpMethod.POST},
+                authLevel = AuthorizationLevel.ANONYMOUS)
+                HttpRequestMessage<Optional<String>> request,
+            final ExecutionContext context) {
+
+        return new Antwort("Hallo Welt");
+    }
+    )
 }
