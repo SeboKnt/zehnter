@@ -57,7 +57,12 @@ public class Function {
 
     @FunctionName("Html")
     public HttpResponseMessage runHtml(
-            @HttpTrigger(name = "req", methods = {HttpMethod.GET}, route = "html") HttpRequestMessage<Optional<String>> request,
+            @HttpTrigger(
+                name = "req", 
+                methods = {HttpMethod.GET, HttpMethod.POST}, 
+                authLevel = AuthorizationLevel.ANONYMOUS,
+                route = "html") 
+                HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
     
         context.getLogger().info("Java HTTP trigger processed a request.");
