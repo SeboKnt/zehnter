@@ -27,10 +27,8 @@ public class Function {
     
         context.getLogger().info("Java HTTP trigger processed a request.");
     
-        // Erstelle den HTML-Inhalt
         String htmlContent = "<html><body><h1>Hallo von Azure Functions!</h1><p>Dies ist eine Beispiel-Webseite.</p></body></html>";
     
-        // Erstelle die HTTP-Antwort mit dem HTML-Inhalt
         return request.createResponseBuilder(HttpStatus.OK)
                 .header("Content-Type", "text/html")
                 .body(htmlContent)
