@@ -41,17 +41,10 @@ public class Function {
         }
     }
 
-
-    @FunctionName("Http2")
-    public Antwort run(
-            @HttpTrigger(
-                name = "req",
-                methods = {HttpMethod.GET, HttpMethod.POST},
-                authLevel = AuthorizationLevel.ANONYMOUS)
-                HttpRequestMessage<Optional<String>> request,
-            final ExecutionContext context) {
-
-        return new Antwort("Hallo Welt");
+    public void timerHandler(
+        @TimerTrigger(name = "timerInfo", schedule = "0 */5 * * * *") String timerInfo,
+        final ExecutionContext context
+    ) {
+        context.getLogger().info("Java Timer trigger function executed at: " + LocalDateTime.now());
     }
-    )
 }
