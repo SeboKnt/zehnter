@@ -11,6 +11,10 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 import java.util.Optional;
 
+import com.microsoft.azure.functions.annotation.*;
+import com.microsoft.azure.functions.*;
+import java.time.*;
+
 /**
  * Azure Functions with HTTP Trigger.
  */
@@ -41,6 +45,7 @@ public class Function {
         }
     }
 
+    @FunctionName("Timer")
     public void timerHandler(
         @TimerTrigger(name = "timerInfo", schedule = "0 */5 * * * *") String timerInfo,
         final ExecutionContext context
