@@ -11,6 +11,8 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 import java.util.Optional;
 
+//  curl "https://zehnter.azurewebsites.net/api/sendMsgOnCurl?msg=HelloWord"
+
 public class Curl {
     @FunctionName("sendMsgOnCurl")
     public HttpResponseMessage run(
@@ -24,6 +26,9 @@ public class Curl {
 
         final String query = request.getQueryParameters().get("msg");
         final String message = request.getBody().orElse(query);
+
+        Telegram dm = new Telegram(message);
+        dm.sendMessage();
 
         if (message == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Message darf nicht leer sein").build();

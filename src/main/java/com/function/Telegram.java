@@ -7,17 +7,15 @@ public class Telegram {
     private final String token = System.getenv("telegram_token");
     private final String chatId = System.getenv("telegram_chat_id");
     private final String api = "https://api.telegram.org/bot";
-    String subject;
     String message;
     
-    public Telegram(String s, String m){
-        this.subject = s;
-        this.message = m;
+    public Telegram(String message){
+        this.message = message;
     }
 
-    public int sendMessage(String a, String s, String c, String t, String m){
+    public int sendMessage(){
         try{
-            String msg = a + s + "/sendMessage?chat_id=" + c + "&text=" + t + ": " + m;
+            String msg = this.api + this.token + "/sendMessage?chat_id=" + this.chatId + "&text=" + this.message;
 
             URL url = new URL(msg);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
