@@ -43,6 +43,10 @@ public class Telegram {
         }
     }
 
+    private void deleteWebhook(){
+        
+    }
+
     public int sendMessage(){
         try{
             String msg = this.api + this.token + "/sendMessage?chat_id=" + this.chatId + "&text=" + this.message;

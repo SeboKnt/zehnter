@@ -24,16 +24,18 @@ public class Webhook {
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
-        final String query = request.getQueryParameters().get("msg");
-        final String message = request.getBody().orElse(query);
+        // Extrahieren Sie den Inhalt der HTTP-Anforderung
+        final String contents = request.getBody().orElse(null);
 
-        Telegram dm = new Telegram(message);
-        dm.sendMessage();
-
-        if (message == null) {
+        if (contents == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Message darf nicht leer sein").build();
         } else {
-            return request.createResponseBuilder(HttpStatus.OK).body("Telegram Respone: " + message).build();
+            // Erstellen Sie eine Nachricht und senden Sie sie
+            final String message = "Beep boop bop, message received.";
+            Telegram dm = new Telegram(message);
+            dm.sendMessage();
+
+            return request.createResponseBuilder(HttpStatus.OK).body("Telegram Response: " + message).build();
         }
     }
 }
