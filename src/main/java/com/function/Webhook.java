@@ -11,8 +11,6 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 import java.util.Optional;
 
-//  curl "https://zehnter.azurewebsites.net/api/sendMsgOnCurl?msg=HelloWord"
-
 public class Webhook {
     @FunctionName("sendMsgOnCurl")
     public HttpResponseMessage run(
@@ -30,9 +28,7 @@ public class Webhook {
         if (contents == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Message darf nicht leer sein").build();
         } else {
-            // Erstellen Sie eine Nachricht und senden Sie sie
-            final String message = "Beep boop bop, message received.";
-            Telegram dm = new Telegram(message);
+            Telegram dm = new Telegram(contents);
             dm.sendMessage();
 
             return request.createResponseBuilder(HttpStatus.OK).body("Telegram Response: " + message).build();
