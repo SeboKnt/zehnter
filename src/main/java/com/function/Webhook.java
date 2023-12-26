@@ -22,8 +22,7 @@ public class Webhook {
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
-        // Extrahieren Sie den Inhalt der HTTP-Anforderung
-        final String contents = request.getBody().orElse(null);
+        final String contents = request.getQueryParameters().get("msg");
 
         if (contents == null) {
             Error err = new Error("Bad_REQUEST");
