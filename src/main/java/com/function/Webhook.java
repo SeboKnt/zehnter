@@ -22,19 +22,22 @@ public class Webhook {
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
-        final String contents = request.getQueryParameters().get("msg");
+        final String body = request.getBody().orElse(null);
 
-        if (contents == null) {
+        if (body == null) {
             Error err = new Error("Bad_REQUEST");
             Telegram dm = new Telegram(err.toString());
             dm.sendMessage();
 
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Bad_REQUEST").build();
         } else {
-            Telegram dm = new Telegram(contents);
+            JSONObject json = new JSONObject(body);
+            String message = json.getJSONObject("message").getString("text");
+
+            Telegram dm = new Telegram(message);
             dm.sendMessage();
 
-            return request.createResponseBuilder(HttpStatus.OK).body("Telegram Message: " + contents).build();
+            return request.createResponseBuilder(HttpStatus.OK).body("Telegram Message: " + message).build();
         }
     }
 }
