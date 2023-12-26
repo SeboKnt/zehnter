@@ -13,7 +13,7 @@ import java.util.Optional;
 
 //  curl "https://zehnter.azurewebsites.net/api/sendMsgOnCurl?msg=HelloWord"
 
-public class Curl {
+public class Webhook {
     @FunctionName("sendMsgOnCurl")
     public HttpResponseMessage run(
             @HttpTrigger(
