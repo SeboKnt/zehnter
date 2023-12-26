@@ -26,12 +26,12 @@ public class Webhook {
         final String contents = request.getBody().orElse(null);
 
         if (contents == null) {
-            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Message darf nicht leer sein").build();
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Bad_REQUEST").build();
         } else {
             Telegram dm = new Telegram(contents);
             dm.sendMessage();
 
-            return request.createResponseBuilder(HttpStatus.OK).body("Telegram Response: " + message).build();
+            return request.createResponseBuilder(HttpStatus.OK).body("Telegram Message: " + contents).build();
         }
     }
 }
