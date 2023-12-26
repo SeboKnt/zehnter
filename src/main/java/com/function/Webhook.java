@@ -12,7 +12,7 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 import java.util.Optional;
 import org.json.JSONObject;
 
-// https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://zehnter.azurewebsites.net/api/reqest
+// https://api.telegram.org/bot<telegramToken>/setWebhook?url=https://zehnter.azurewebsites.net/api/reqest?code=<functionToken>
 
 public class Webhook {
     @FunctionName("reqest")
