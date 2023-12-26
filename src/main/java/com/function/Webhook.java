@@ -34,12 +34,16 @@ public class Webhook {
             Telegram dm = new Telegram(err.toString());
             dm.sendMessage();
 
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Bad_REQUEST").build();
+
         } else {
             JSONObject json = new JSONObject(body);
             String message = json.getJSONObject("message").getString("text");
 
             Telegram dm = new Telegram(message);
             dm.sendMessage();
+
+            return request.createResponseBuilder(HttpStatus.OK).body("OK").build();
         }
     }
 }
