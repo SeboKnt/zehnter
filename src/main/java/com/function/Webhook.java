@@ -12,8 +12,10 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 import java.util.Optional;
 import org.json.JSONObject;
 
+// https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://zehnter.azurewebsites.net/api/reqest
+
 public class Webhook {
-    @FunctionName("sendMsgOnCurl")
+    @FunctionName("reqest")
     public HttpResponseMessage run(
             @HttpTrigger(
                 name = "req",
@@ -21,7 +23,8 @@ public class Webhook {
                 authLevel = AuthorizationLevel.ANONYMOUS)
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
-                
+        
+        // return statement for azure function
         context.getLogger().info("Java HTTP trigger processed a request.");
 
         final String body = request.getBody().orElse(null);
@@ -31,15 +34,12 @@ public class Webhook {
             Telegram dm = new Telegram(err.toString());
             dm.sendMessage();
 
-            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Bad_REQUEST").build();
         } else {
             JSONObject json = new JSONObject(body);
             String message = json.getJSONObject("message").getString("text");
 
             Telegram dm = new Telegram(message);
             dm.sendMessage();
-
-            return request.createResponseBuilder(HttpStatus.OK).body("Telegram Message: " + message).build();
         }
     }
 }
