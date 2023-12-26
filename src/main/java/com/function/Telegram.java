@@ -6,6 +6,8 @@ import java.io.*;
 
 // reference https://www.youtube.com/watch?v=gw0tlbpCx5U
 
+// TODO: cleanup code --> mv HttpURLConnection own function
+
 public class Telegram {
     private final String token = System.getenv("telegram_token");
     private final String chatId = System.getenv("telegram_chat_id");
