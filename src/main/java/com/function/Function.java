@@ -6,7 +6,15 @@ import java.time.*;
 import java.util.*;
 
 public class Function {
-    public static void main(String[] args) {
+    String cmd;
 
+    public Function(String cmd){
+        this.cmd = cmd;
+    }
+
+    public void main() {
+        String response = this.cmd;
+        Telegram dm = new Telegram(response);
+        dm.sendMessage();
     }
 }

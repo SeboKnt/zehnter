@@ -40,8 +40,8 @@ public class Webhook {
             JSONObject json = new JSONObject(body);
             String message = json.getJSONObject("message").getString("text");
 
-            Telegram dm = new Telegram(message);
-            dm.sendMessage();
+            Function func = new Function(message);
+            func.main();
 
             return request.createResponseBuilder(HttpStatus.OK).body("OK").build();
         }
