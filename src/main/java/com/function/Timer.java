@@ -18,8 +18,9 @@ public class Timer {
     @FunctionName("timeToRrenewTelegramWebhook")
     public void timerHandler2(@TimerTrigger(name = "timer", schedule = "0 0 3 * * *") String timer) {
 
-        final String message = "erneuern!";
-        Telegram dm = new Telegram(message);
-        dm.sendMessage();
+        final String message = "erneuernt!";
+        Telegram tg = new Telegram(message);
+        tg.renewWebhook();
+        tg.sendMessage();
     }
 }

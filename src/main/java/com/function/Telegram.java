@@ -52,5 +52,14 @@ public class Telegram {
     public int renewWebhook(){
         String url = this.telegram_api + "/setWebhook?url=" + this.func_api;
         return this.curl(url);
+
+        // das ist die Antwort die von Telegram zu erwarten ist.
+        // die kann auch noch verarbeitet werden.
+        //{
+        //    "ok": true,
+        //    "result": true,
+        //    "description": "Webhook is already set"
+        //}
+
     }
 }
