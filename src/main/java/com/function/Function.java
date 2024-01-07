@@ -7,13 +7,17 @@ import java.util.*;
 
 public class Function {
     String cmd;
+    String response;
 
     public Function(String cmd){
         this.cmd = cmd;
     }
 
+    
+
+    // Hier eigenlich main(String[] args) -> aber Azure Functions anders
     public void main() {
-        String response = this.cmd;
+        response = this.cmd;
         Telegram dm = new Telegram(response);
         dm.sendMessage();
     }

@@ -5,23 +5,21 @@ import java.io.*;
 
 // reference https://www.youtube.com/watch?v=gw0tlbpCx5U
 
-// TODO: cleanup code --> mv HttpURLConnection own function
-
 public class Telegram {
-    private final String token = System.getenv("telegram_token");
+    private final String telegram_token = System.getenv("telegram_token");
     private final String chatId = System.getenv("telegram_chat_id");
-    private final String api = "https://api.telegram.org/bot";
+    private final String telegram_api = "https://api.telegram.org/bot" + this.telegram_token;
+    private final String func_auth = System.getenv("azure_function_zehnter_request_default");
+    private final String func_api = "https://zehnter.azurewebsites.net/api/reqest?code=" + this.func_auth;
     String message;
     
     public Telegram(String message){
         this.message = message;
     }
 
-    public int sendMessage(){
+    private int curl(String addr){
         try{
-            String msg = this.api + this.token + "/sendMessage?chat_id=" + this.chatId + "&text=" + this.message;
-
-            URL url = new URL(msg);
+            URL url = new URL(addr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestMethod("POST");
@@ -31,7 +29,6 @@ public class Telegram {
             out.flush();
             out.close();
             
-            // check response code
             int responseCode = conn.getResponseCode();
             
             conn.disconnect();
@@ -44,5 +41,16 @@ public class Telegram {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public int sendMessage(){
+        String url = this.telegram_api + "/sendMessage?chat_id=" + this.chatId + "&text=" + this.message;
+        return this.curl(url);
+
+    }
+
+    public int renewWebhook(){
+        String url = this.telegram_api + "/setWebhook?url=" + this.func_api;
+        return this.curl(url);
     }
 }

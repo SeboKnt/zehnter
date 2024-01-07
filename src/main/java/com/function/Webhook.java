@@ -38,7 +38,7 @@ public class Webhook {
 
         } else {
             JSONObject json = new JSONObject(body);
-            String message = json.getJSONObject("message").getString("text");
+            String message = json.getJSONObject("message").getString("text"); // json.toString();
 
             Function func = new Function(message);
             func.main();
